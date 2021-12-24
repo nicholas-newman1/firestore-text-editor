@@ -1,5 +1,7 @@
 # Firestore Text Editor
 
+![example](https://media3.giphy.com/media/6oK9D9POcoG2l1H30x/giphy.gif?cid=790b7611abc025bbc17f0ed96674aed349e8adeec9c9f9c0&rid=giphy.gif&ct=g)
+
 Firestore Text Editor wraps [react-draft-wysiwyg](https://www.npmjs.com/package/react-draft-wysiwyg) and connects it to firestore.
 
 ## Getting Started
