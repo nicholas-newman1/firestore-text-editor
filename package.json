@@ -1,0 +1,81 @@
+{
+  "version": "1.0.3",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "keywords": [
+    "firestore",
+    "firebase",
+    "text",
+    "editor",
+    "draftjs",
+    "richtext",
+    "react"
+  ],
+  "engines": {
+    "node": ">=10"
+  },
+  "scripts": {
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "peerDependencies": {
+    "react": ">=16"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "firestore-text-editor",
+  "author": "Nicholas Newman",
+  "module": "dist/firestore-text-editor.esm.js",
+  "size-limit": [
+    {
+      "path": "dist/firestore-text-editor.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/firestore-text-editor.esm.js",
+      "limit": "10 KB"
+    }
+  ],
+  "devDependencies": {
+    "@size-limit/preset-small-lib": "^7.0.4",
+    "@types/react": "^17.0.38",
+    "@types/react-dom": "^17.0.11",
+    "husky": "^7.0.4",
+    "postcss": "^8.4.5",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rollup-plugin-postcss": "^4.0.2",
+    "size-limit": "^7.0.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.5.4"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/icons": "^4.11.2",
+    "@types/draft-js": "^0.11.7",
+    "@types/react-draft-wysiwyg": "^1.13.3",
+    "draft-js": "^0.11.7",
+    "firebase": "^8.10.0",
+    "react-draft-wysiwyg": "^1.14.7"
+  }
+}
