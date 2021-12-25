@@ -3,11 +3,11 @@ import FirestoreTextEditor from './FirestoreTextEditorContext';
 import { FirebaseApp } from './types';
 
 interface Props {
-  app: FirebaseApp;
+  app: any;
 }
 
 const FirestoreTextEditorProvider: React.FC<Props> = ({ app, children }) => {
-  const db = app.firestore();
+  const db = (app as FirebaseApp).firestore();
 
   return (
     <FirestoreTextEditor.Provider value={{ app, db }}>
