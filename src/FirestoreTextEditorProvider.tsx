@@ -17,6 +17,9 @@ interface Props {
   editIconStyle?: CSSProperties;
   cancelButtonStyle?: CSSProperties;
   cancelIconStyle?: CSSProperties;
+  wrapperStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
+  editorStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
+  toolbarStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
 }
 
 const FirestoreTextEditorProvider: React.FC<Props> = ({
@@ -32,6 +35,9 @@ const FirestoreTextEditorProvider: React.FC<Props> = ({
   editIconStyle,
   cancelButtonStyle,
   cancelIconStyle,
+  wrapperStyle,
+  editorStyle,
+  toolbarStyle,
 }) => {
   const db = (app as FirebaseApp).firestore();
 
@@ -50,6 +56,9 @@ const FirestoreTextEditorProvider: React.FC<Props> = ({
         editIconStyle,
         cancelButtonStyle,
         cancelIconStyle,
+        wrapperStyle,
+        editorStyle,
+        toolbarStyle,
       }}
     >
       {children}

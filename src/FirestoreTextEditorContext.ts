@@ -15,6 +15,9 @@ interface Context {
   editIconStyle?: CSSProperties;
   cancelButtonStyle?: CSSProperties;
   cancelIconStyle?: CSSProperties;
+  wrapperStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
+  editorStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
+  toolbarStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
 }
 
 const FirestoreTextEditorContext = React.createContext<Context>({} as Context);

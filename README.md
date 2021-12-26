@@ -90,19 +90,22 @@ function App() {
 
 ### FirestoreTextEditorProvider Props
 
-| Prop              | Type (\* = required)                                          | Default      | Description                                          |
-| ----------------- | ------------------------------------------------------------- | ------------ | ---------------------------------------------------- |
-| app               | FirebaseApp\*                                                 |              | An instance of FirebaseApp                           |
-| loader            | ReactElement                                                  | "Loading..." | Override the loading component                       |
-| SaveButton        | FunctionComponent<{ onClick: () => any; disabled?: boolean }> |              | Replace the save button with a different component   |
-| EditButton        | FunctionComponent<{ onClick: () => any }>                     |              | Replace the edit button with a different component   |
-| CancelButton      | FunctionComponent<{ onClick: () => any }>                     |              | Replace the cancel button with a different component |
-| saveButtonStyle   | CSSProperties                                                 |              | Override the save button styles                      |
-| saveIconStyle     | CSSProperties                                                 |              | Override the save icon styles                        |
-| editButtonStyle   | CSSProperties                                                 |              | Override the edit button styles                      |
-| editIconStyle     | CSSProperties                                                 |              | Override the edit icon styles                        |
-| cancelButtonStyle | CSSProperties                                                 |              | Override the cancel button styles                    |
-| cancelIconStyle   | CSSProperties                                                 |              | Override the cancel icon styles                      |
+| Prop              | Type (\* = required)                                          | Default      | Description                                            |
+| ----------------- | ------------------------------------------------------------- | ------------ | ------------------------------------------------------ |
+| app               | FirebaseApp\*                                                 |              | An instance of FirebaseApp                             |
+| loader            | ReactElement                                                  | "Loading..." | Override the loading component                         |
+| SaveButton        | FunctionComponent<{ onClick: () => any; disabled?: boolean }> |              | Replace the save button with a different component     |
+| EditButton        | FunctionComponent<{ onClick: () => any }>                     |              | Replace the edit button with a different component     |
+| CancelButton      | FunctionComponent<{ onClick: () => any }>                     |              | Replace the cancel button with a different component   |
+| saveButtonStyle   | CSSProperties                                                 |              | Override the save button styles                        |
+| saveIconStyle     | CSSProperties                                                 |              | Override the save icon styles                          |
+| editButtonStyle   | CSSProperties                                                 |              | Override the edit button styles                        |
+| editIconStyle     | CSSProperties                                                 |              | Override the edit icon styles                          |
+| cancelButtonStyle | CSSProperties                                                 |              | Override the cancel button styles                      |
+| cancelIconStyle   | CSSProperties                                                 |              | Override the cancel icon styles                        |
+| wrapperStyle      | CSSProperties OR (editing: boolean) => CSSProperties          |              | Override the wrapper styles (from react-draft-wysiwyg) |
+| editorStyle       | CSSProperties OR (editing: boolean) => CSSProperties          |              | Override the editor styles (from react-draft-wysiwyg)  |
+| toolbarStyle      | CSSProperties OR (editing: boolean) => CSSProperties          |              | Override the toolbar styles (from react-draft-wysiwyg) |
 
 <a name="firestoretexteditorproviderpropsexample"></a>
 
@@ -153,6 +156,9 @@ The FirestoreTextEditor component can be configured with props. Any shared props
 | editIconStyle     | CSSProperties                                                 |                           | Override the edit icon styles                                                                                                                                                                            |
 | cancelButtonStyle | CSSProperties                                                 |                           | Override the cancel button styles                                                                                                                                                                        |
 | cancelIconStyle   | CSSProperties                                                 |                           | Override the cancel icon styles                                                                                                                                                                          |
+| wrapperStyle      | CSSProperties OR (editing: boolean) => CSSProperties          |                           | Override the wrapper styles (from react-draft-wysiwyg)                                                                                                                                                   |
+| editorStyle       | CSSProperties OR (editing: boolean) => CSSProperties          |                           | Override the editor styles (from react-draft-wysiwyg)                                                                                                                                                    |
+| toolbarStyle      | CSSProperties OR (editing: boolean) => CSSProperties          |                           | Override the toolbar styles (from react-draft-wysiwyg)                                                                                                                                                   |
 
 <a name="firestoretexteditorpropsexample"></a>
 

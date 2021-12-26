@@ -25,6 +25,9 @@ interface Props {
   editIconStyle?: CSSProperties;
   cancelButtonStyle?: CSSProperties;
   cancelIconStyle?: CSSProperties;
+  wrapperStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
+  editorStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
+  toolbarStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
 }
 
 const FirestoreTextEditor: React.FC<Props> = ({
@@ -42,6 +45,9 @@ const FirestoreTextEditor: React.FC<Props> = ({
   editIconStyle,
   cancelButtonStyle,
   cancelIconStyle,
+  wrapperStyle,
+  editorStyle,
+  toolbarStyle,
 }) => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const [lastSavedState, setLastSavedState] = useState(
@@ -62,6 +68,9 @@ const FirestoreTextEditor: React.FC<Props> = ({
     editIconStyle: contextEditIconStyle,
     cancelButtonStyle: contextCancelButtonStyle,
     cancelIconStyle: contextCancelIconStyle,
+    wrapperStyle: contextWrapperStyle,
+    editorStyle: contextEditorStyle,
+    toolbarStyle: contextToolbarStyle,
   } = useContext(FirestoreTextEditorContext);
 
   useEffect(() => {
@@ -171,16 +180,57 @@ const FirestoreTextEditor: React.FC<Props> = ({
         ))}
 
       <Editor
+        wrapperStyle={{
+          ...(typeof contextWrapperStyle === 'function'
+            ? contextWrapperStyle(editing)
+            : contextWrapperStyle),
+          ...(typeof wrapperStyle === 'function'
+            ? wrapperStyle(editing)
+            : wrapperStyle),
+        }}
         editorStyle={
           editing
             ? {
                 padding: 6,
                 borderRadius: 2,
                 border: '1px solid #F1F1F1',
+                ...(typeof contextEditorStyle === 'function'
+                  ? contextEditorStyle(editing)
+                  : contextEditorStyle),
+                ...(typeof editorStyle === 'function'
+                  ? editorStyle(editing)
+                  : editorStyle),
               }
-            : {}
+            : {
+                margin: '-1rem 0',
+                ...(typeof contextEditorStyle === 'function'
+                  ? contextEditorStyle(editing)
+                  : contextEditorStyle),
+                ...(typeof editorStyle === 'function'
+                  ? editorStyle(editing)
+                  : editorStyle),
+              }
         }
-        toolbarStyle={editing ? {} : { display: 'none' }}
+        toolbarStyle={
+          editing
+            ? {
+                ...(typeof contextToolbarStyle === 'function'
+                  ? contextToolbarStyle(editing)
+                  : contextToolbarStyle),
+                ...(typeof toolbarStyle === 'function'
+                  ? toolbarStyle(editing)
+                  : toolbarStyle),
+              }
+            : {
+                display: 'none',
+                ...(typeof contextToolbarStyle === 'function'
+                  ? contextToolbarStyle(editing)
+                  : contextToolbarStyle),
+                ...(typeof toolbarStyle === 'function'
+                  ? toolbarStyle(editing)
+                  : toolbarStyle),
+              }
+        }
         editorState={editorState}
         onEditorStateChange={setEditorState}
         readOnly={!editing}
