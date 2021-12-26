@@ -1,39 +1,16 @@
-import React, { ReactElement, useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { convertFromRaw, convertToRaw, EditorState } from 'draft-js';
 import { Editor } from 'react-draft-wysiwyg';
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { Close, Create, Save } from '@material-ui/icons';
 import FirestoreTextEditorContext from './FirestoreTextEditorContext';
-import { CSSProperties } from '@material-ui/core/styles/withStyles';
+import { FirestoreTextEditorProps } from './types';
 
-interface Props {
-  path: string;
-  field?: string;
-  isEditable?: boolean;
-  loader?: ReactElement;
-  onSave?: (editorState: EditorState) => any;
-  SaveButton?: (props: {
-    onClick: () => any;
-    disabled?: boolean;
-  }) => ReactElement;
-  EditButton?: (props: { onClick: () => any }) => ReactElement;
-  CancelButton?: (props: { onClick: () => any }) => ReactElement;
-  saveButtonStyle?: CSSProperties;
-  saveIconStyle?: CSSProperties;
-  editButtonStyle?: CSSProperties;
-  editIconStyle?: CSSProperties;
-  cancelButtonStyle?: CSSProperties;
-  cancelIconStyle?: CSSProperties;
-  wrapperStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
-  editorStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
-  toolbarStyle?: CSSProperties | ((editing: boolean) => CSSProperties);
-}
-
-const FirestoreTextEditor: React.FC<Props> = ({
+const FirestoreTextEditor: React.FC<FirestoreTextEditorProps> = ({
   path,
-  field = 'firestoreTextEditorData',
-  isEditable = true,
+  field,
+  isEditable,
   loader,
   onSave,
   SaveButton,
@@ -58,6 +35,8 @@ const FirestoreTextEditor: React.FC<Props> = ({
   const [editing, setEditing] = useState(false);
   const {
     db,
+    field: contextField,
+    isEditable: contextIsEditable,
     loader: contextLoader,
     SaveButton: ContextSaveButton,
     EditButton: ContextEditButton,
@@ -73,14 +52,16 @@ const FirestoreTextEditor: React.FC<Props> = ({
     toolbarStyle: contextToolbarStyle,
   } = useContext(FirestoreTextEditorContext);
 
+  const f = field || contextField || 'firestoreTextEditorData';
+
   useEffect(() => {
     db.doc(path)
       .get()
       .then(doc => {
         const data = doc.data();
-        if (!data?.[field]) return setLoadingData(false);
+        if (!data?.[f]) return setLoadingData(false);
         const state = EditorState.createWithContent(
-          convertFromRaw(JSON.parse(data[field]))
+          convertFromRaw(JSON.parse(data[f]))
         );
         setEditorState(state);
         setLastSavedState(state);
@@ -93,9 +74,7 @@ const FirestoreTextEditor: React.FC<Props> = ({
     db.doc(path)
       .set(
         {
-          [field]: JSON.stringify(
-            convertToRaw(editorState.getCurrentContent())
-          ),
+          [f]: JSON.stringify(convertToRaw(editorState.getCurrentContent())),
         },
         { merge: true }
       )
@@ -124,7 +103,11 @@ const FirestoreTextEditor: React.FC<Props> = ({
     )
   ) : (
     <>
-      {isEditable &&
+      {(isEditable !== undefined
+        ? isEditable
+        : contextIsEditable !== undefined
+        ? contextIsEditable
+        : true) &&
         !editing &&
         (EditButton ? (
           <EditButton onClick={handleEdit} />
