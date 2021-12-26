@@ -28,9 +28,10 @@ export interface FirestoreTextEditorProps {
 }
 
 export interface ProviderProps extends Partial<FirestoreTextEditorProps> {
-  app: FirebaseApp;
+  app: any;
 }
 
 export interface Context extends ProviderProps {
+  app: FirebaseApp;
   db: firebase.firestore.Firestore;
 }
