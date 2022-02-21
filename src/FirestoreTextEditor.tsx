@@ -197,6 +197,7 @@ const FirestoreTextEditor: React.FC<FirestoreTextEditorProps> = ({
         toolbarStyle={
           editing
             ? {
+                color: 'black',
                 ...(typeof contextToolbarStyle === 'function'
                   ? contextToolbarStyle(editing)
                   : contextToolbarStyle),
